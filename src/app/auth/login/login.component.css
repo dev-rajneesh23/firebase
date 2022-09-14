@@ -29,3 +29,14 @@
     border: 2px solid rgb(28, 12, 154);
 
 } */
+.forget a {
+    text-decoration: none;
+    color: white;
+}
+.p-button-outlined{
+    width: 100%;
+    padding-left: 60px;
+}
+.form-control.ng-touched.ng-invalid{
+    border: 2px solid red;
+}

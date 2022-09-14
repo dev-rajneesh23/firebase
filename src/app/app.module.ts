@@ -14,11 +14,16 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AuthService } from './auth/authservice/auth.service';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
+import {InputTextModule} from 'primeng/inputtext';
+// import { SidebarComponent } from './home/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ForgetPasswordComponent,
+    // SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,8 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     AngularFirestoreModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    InputTextModule
   ],
   
   providers: [AuthService],

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class AuthService implements OnInit{
  isLoggedin:boolean=false;
  userdata:any;
+ sidebar:boolean=false;
   constructor(public fireauth:AngularFireAuth , ngzone:NgZone , public router:Router , public firestore:AngularFirestore) { }
 
 
@@ -30,6 +31,7 @@ export class AuthService implements OnInit{
   }
 
   SignIn(email: string, password: string) {
+    debugger;
     return this.fireauth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -86,9 +88,36 @@ export class AuthService implements OnInit{
     return this.fireauth
     .signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['/']);
     });
   }
-  
 
+  ForgotPassword(passwordResetEmail: string) {
+    return this.fireauth
+      .sendPasswordResetEmail(passwordResetEmail)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+    }
+
+    GoogleAuth() {
+      return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+        this.router.navigate(['dashboard']);
+      });
+    }
+
+    AuthLogin(provider: any) {
+      return this.fireauth
+        .signInWithPopup(provider)
+        .then((result) => {
+          this.router.navigate(['/dashboard']);
+          this.SetUserData(result.user);
+        })
+        .catch((error) => {
+          window.alert(error);
+        });
+    }
 }

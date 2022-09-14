@@ -39,29 +39,33 @@
                 </div>
                 
                 <h2 class="ml-8 ">Login Page</h2>
-                <form  [formGroup]="loginFrom" (ngSubmit)="onsubmit()" #login="ngForm">
+                <form  [formGroup]="loginFrom"  #login="ngForm">
                 <div class="field">
                    <span class="p-float-label">
-                       <input id="float-input" type="text" pInputText class="p-inputtext-lg" name="email" formControlName="email" [ngClass]="{'is-invalid':login.submitted && loginFrom.get('email')?.invalid}"> 
+                       <input id="float-input" type="text" pInputText class="form-control p-inputtext-lg" name="email" #email formControlName="email" [ngClass]="{'is-invalid':login.submitted && loginFrom.get('email')?.invalid}"> 
                        <label for="float-input">Email</label>
-                       <div *ngIf="login.submitted && loginFrom.get('email')?.invalid" style="color: red;">email is required</div>
+                       <div *ngIf="login.submitted && loginFrom.get('email')?.invalid"  style="color: red;">email is required</div>
                    </span>
                 </div>
                <br>
                <br>
                 <div class="field">
                    <span class="p-float-label">
-                       <input id="float-input1" type="password" pInputText class="p-inputtext-lg " name="password" formControlName="password" [ngClass]="{'is-invalid':login.submitted && loginFrom.get('password')?.invalid}"> 
+                       <input id="float-input1" type="password" pInputText class="form-control p-inputtext-lg " #password name="password" formControlName="password" [ngClass]="{'is-invalid':login.submitted && loginFrom.get('password')?.invalid}"> 
                        <label for="float-input1">password</label>
                        <div *ngIf="login.submitted && loginFrom.get('password')?.invalid" style="color: red;">password is required</div>
 
                    </span>
-                </div><br>
+                </div>
+                 <div class="forget">
+                    <span><a  routerLink="/forget" > Forget Password </a></span>
+                 </div><br>
                 <div>
-                   <button pButton type="submit"  class="p-button-help">Login</button> &nbsp;
-                   <span>don't have an account?</span>&nbsp;&nbsp;
-                   <a routerLink="/signup"  style="color:rgb(15, 105, 141);">Sign-up</a> 
+                   <button pButton type="submit"  class="p-button-help"  (click)="authservice.SignIn(email.value, password.value)">Sign-In</button> &nbsp;
+                   <span>Not a member?</span>&nbsp;&nbsp;
+                   <a routerLink="/signup"  style="color:rgb(15, 105, 141); text-decoration: none;">Sign-up</a> 
                 </div> <br>
+                <button pButton type="button"  class="p-button-outlined" (click)="authservice.GoogleAuth()">Sign-in with Google</button>
             </form>
             </div>
     

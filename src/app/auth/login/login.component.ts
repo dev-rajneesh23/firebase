@@ -9,8 +9,9 @@ import { AuthService } from '../authservice/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginFrom!:FormGroup;
+  userdata:any;
   
-  constructor(private fb:FormBuilder,private auth:AuthService ) { }
+  constructor(private fb:FormBuilder,public authservice:AuthService ) { }
 
   ngOnInit(): void {
    this.loginFrom = this.fb.group({
@@ -18,8 +19,11 @@ export class LoginComponent implements OnInit {
     password:["", [Validators.required, Validators.minLength(6)]]
    }),
    {updateOn:'submit'}
+   this.userdata = this.loginFrom
   }
-    onsubmit(){
-      
-    }
+    // onsubmit(){
+    //   debugger
+    //   this.userdata = this.loginFrom.value;
+    //   this.authservice.SignUp(this.userdata.email,this.userdata.password)
+    // }
 }

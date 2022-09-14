@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl ,Validators} from '@angular/forms';
 import { Password } from 'primeng/password';
 import { __values } from 'tslib';
-import  {AuthService}  from '../authservice/auth.service' 
-
+import  {AuthService}  from '../authservice/auth.service' ;
+ import  {Router}   from  '@angular/router'
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -13,7 +13,7 @@ export class SignUpComponent implements OnInit {
    signupForm!:FormGroup;
    issignin=false;
    data:any;
-  constructor(private fb:FormBuilder , public auth:AuthService) { }
+  constructor(private fb:FormBuilder , public auth:AuthService, private router:Router) { }
   
   
   
@@ -29,8 +29,13 @@ export class SignUpComponent implements OnInit {
 
   }
   signup(){
-    this.data = this.signupForm.value;
-    this.auth.SignUp(this.data.email,this.data.password)
+    if(this.signupForm.valid)
+    {
+      this.data = this.signupForm.value;
+      this.auth.SignUp(this.data.email,this.data.password)
+     this.router.navigate(['/verify-email']);
+    }
+        
   }
    
 }
